@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: python
+        image: python:3.12.0rc1-windowsservercore-ltsc2022
         ports:
         - containerPort: 8080
