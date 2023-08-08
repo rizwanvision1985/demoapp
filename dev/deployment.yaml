@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: alpine-myapp
+  name: nginx-myapp
 spec:
   selector:
     matchLabels:
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: alpine:3.18.3
+        image: nginx
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
