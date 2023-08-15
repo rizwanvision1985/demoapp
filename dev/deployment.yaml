@@ -28,4 +28,4 @@ spec:
                 operator: In
                 values:
                 - aks-agentpool-40053212-vmss000003
-            topologyKey: "topology.kubernetes.io/region:eastus"
+            topologyKey: "kubernetes.io/hostname"
