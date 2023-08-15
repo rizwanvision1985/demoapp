@@ -1,27 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-myapp
+  name: ngnix-deployment
+  labels:
+    app: testapp-2
 spec:
+  replicas: 2
   selector:
     matchLabels:
-      app: myapp
-  replicas: 4
+      app: testapp-2
   template:
     metadata:
       labels:
-        app: myapp
+        app: testapp-2
     spec:
       containers:
-      - name: myapp
-        image: nginx:1.25.1-alpine-slim
-        imagePullPolicy: Always
+      - name: testapp-2
+        image: nginx  # Note the corrected image name
         ports:
-        - containerPort: 8080
-        resources:
-        requests:
-          cpu: "10m"  # Minimum CPU request (10 milliCPU)
-          memory: "20Mi"  # Minimum memory request (20 Mebibytes)
-        limits:
-          cpu: "100m"  # Maximum CPU limit (100 milliCPU)
-          memory: "256Mi"  # Maximum memory limit (256 Mebibytes)
+        - containerPort: 80
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: "kubernetes.io/hostname"
+                operator: In
+                values:
+                - aks-agentpool-40053212-vmss000003
+            topologyKey: "topology.kubernetes.io/region:eastus"
